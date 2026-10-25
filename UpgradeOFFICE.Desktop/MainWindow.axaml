@@ -35,20 +35,42 @@
               <TextBlock Text="Writer" FontSize="23" FontWeight="Bold" Foreground="#1B2940"/>
               <TextBlock Text="Escreva documentos e trabalhe com arquivos do Word (.docx) ou texto simples." FontSize="13" Foreground="#64748B"/>
             </StackPanel>
-            <Border Grid.Row="1" Background="#F3F6FB" CornerRadius="10" Padding="10" Margin="0,0,0,12">
-              <WrapPanel Orientation="Horizontal">
-                <Button Content="Abrir arquivo" Click="OpenWriter_Click" Margin="0,0,8,0"/>
-                <Button Content="Salvar TXT" Click="SaveWriter_Click" Margin="0,0,8,0"/>
-                <Button Content="Abrir Word (.docx)" Click="OpenWord_Click" Margin="0,0,8,0"/>
-                <Button Content="Salvar Word (.docx)" Click="SaveWord_Click"/>
-              </WrapPanel>
-            </Border>
-            <Border Grid.Row="2" BorderBrush="#DCE3ED" BorderThickness="1" CornerRadius="10" Padding="8">
-              <TextBox x:Name="WriterEditor" AcceptsReturn="True" TextWrapping="Wrap"
-                       FontSize="16"
-                       VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch"
-                       Background="White" BorderThickness="0"
-                       Watermark="Comece a escrever aqui..."/>
+            <StackPanel Grid.Row="1" Spacing="8" Margin="0,0,0,12">
+              <Border Background="#F3F6FB" CornerRadius="10" Padding="10">
+                <WrapPanel Orientation="Horizontal">
+                  <Button Content="Abrir TXT" Click="OpenWriter_Click" Margin="0,0,8,0"/>
+                  <Button Content="Salvar TXT" Click="SaveWriter_Click" Margin="0,0,8,0"/>
+                  <Button Content="Abrir Word (.docx)" Click="OpenWord_Click" Margin="0,0,8,0"/>
+                  <Button Content="Salvar Word (.docx)" Click="SaveWord_Click"/>
+                </WrapPanel>
+              </Border>
+              <Border Background="#F8FAFC" BorderBrush="#DCE3ED" BorderThickness="1" CornerRadius="10" Padding="8">
+                <WrapPanel Orientation="Horizontal">
+                  <Button Content="B" FontWeight="Bold" ToolTip.Tip="Negrito no parágrafo atual" Click="ToggleBold_Click" Margin="0,0,6,0"/>
+                  <Button Content="I" FontStyle="Italic" ToolTip.Tip="Itálico no parágrafo atual" Click="ToggleItalic_Click" Margin="0,0,6,0"/>
+                  <Button Content="U" ToolTip.Tip="Sublinhado no parágrafo atual (no Word salvo)" Click="ToggleUnderline_Click" Margin="0,0,12,0"/>
+                  <TextBlock Text="Tamanho" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                  <ComboBox x:Name="WriterFontSize" Width="76" SelectedIndex="2" SelectionChanged="WriterFontSize_SelectionChanged" Margin="0,0,12,0">
+                    <ComboBoxItem Content="10"/>
+                    <ComboBoxItem Content="11"/>
+                    <ComboBoxItem Content="12"/>
+                    <ComboBoxItem Content="14"/>
+                    <ComboBoxItem Content="16"/>
+                    <ComboBoxItem Content="18"/>
+                    <ComboBoxItem Content="24"/>
+                    <ComboBoxItem Content="36"/>
+                  </ComboBox>
+                  <Button Content="Esquerda" Click="AlignLeft_Click" Margin="0,0,6,0"/>
+                  <Button Content="Centro" Click="AlignCenter_Click" Margin="0,0,6,0"/>
+                  <Button Content="Direita" Click="AlignRight_Click" Margin="0,0,6,0"/>
+                  <Button Content="+ Parágrafo" Click="AddParagraph_Click"/>
+                </WrapPanel>
+              </Border>
+            </StackPanel>
+            <Border Grid.Row="2" BorderBrush="#DCE3ED" BorderThickness="1" CornerRadius="10" Padding="12">
+              <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <StackPanel x:Name="WriterParagraphs" Spacing="8"/>
+              </ScrollViewer>
             </Border>
           </Grid>
         </TabItem>

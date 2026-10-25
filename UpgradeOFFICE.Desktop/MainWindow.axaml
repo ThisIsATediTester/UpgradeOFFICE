@@ -45,7 +45,7 @@
             </Border>
             <Border Grid.Row="2" BorderBrush="#DCE3ED" BorderThickness="1" CornerRadius="10" Padding="8">
               <TextBox x:Name="WriterEditor" AcceptsReturn="True" TextWrapping="Wrap"
-                       FontSize="16" LineHeight="25"
+                       FontSize="16"
                        VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch"
                        Background="White" BorderThickness="0"
                        Watermark="Comece a escrever aqui..."/>

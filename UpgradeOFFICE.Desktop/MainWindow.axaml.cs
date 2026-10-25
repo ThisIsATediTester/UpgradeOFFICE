@@ -243,10 +243,19 @@ public partial class MainWindow : Window
 
     private void AddParagraph_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var previous = GetActiveParagraph();
         var paragraph = AddWriterParagraph(string.Empty, true);
-        paragraph.FontSize = GetActiveParagraph()?.FontSize ?? 12;
+        if (previous is not null)
+        {
+            paragraph.IsBold = previous.IsBold;
+            paragraph.IsItalic = previous.IsItalic;
+            paragraph.IsUnderline = previous.IsUnderline;
+            paragraph.FontSize = previous.FontSize;
+            paragraph.Alignment = previous.Alignment;
+        }
+
         ApplyParagraphVisualStyle(paragraph);
-        SetStatus("Novo parágrafo adicionado.");
+        SetStatus("Novo parágrafo adicionado com a formatação do anterior.");
     }
 
     private static async Task<List<(string Text, bool Bold, bool Italic, bool Underline, int FontSize, TextAlignment Alignment)>> ReadWordDocumentAsync(IStorageFile file)

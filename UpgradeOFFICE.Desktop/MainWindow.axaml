@@ -2,59 +2,108 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         x:Class="UpgradeOFFICE.Desktop.MainWindow"
         Title="UpgradeOFFICE"
-        Width="1100" Height="720"
-        MinWidth="760" MinHeight="520"
+        Width="1180" Height="780"
+        MinWidth="820" MinHeight="580"
+        Background="#F3F5F9"
         WindowStartupLocation="CenterScreen">
-  <Grid RowDefinitions="Auto,*" Margin="18">
-    <Border Grid.Row="0" Padding="18" CornerRadius="12" Background="#243247" Margin="0,0,0,14">
-      <StackPanel Spacing="5">
-        <TextBlock Text="UpgradeOFFICE" FontSize="27" FontWeight="Bold" Foreground="White"/>
-        <TextBlock Text="Seu espaço de trabalho, no seu computador." FontSize="14" Foreground="#D7E0EC"/>
-      </StackPanel>
+  <Grid RowDefinitions="Auto,*,Auto" Margin="24">
+    <Border Grid.Row="0" Background="#17243A" CornerRadius="18" Padding="24" Margin="0,0,0,18">
+      <Grid ColumnDefinitions="*,Auto">
+        <StackPanel Spacing="7">
+          <StackPanel Orientation="Horizontal" Spacing="10">
+            <Border Background="#5D7CFA" CornerRadius="9" Padding="9,5">
+              <TextBlock Text="UO" Foreground="White" FontSize="17" FontWeight="Bold"/>
+            </Border>
+            <TextBlock Text="UpgradeOFFICE" FontSize="28" FontWeight="Bold" Foreground="White" VerticalAlignment="Center"/>
+          </StackPanel>
+          <TextBlock Text="Seu espaço de trabalho, simples e organizado." FontSize="14" Foreground="#C8D3E4"/>
+        </StackPanel>
+        <Border Grid.Column="1" Background="#263650" CornerRadius="12" Padding="14,10" VerticalAlignment="Center">
+          <StackPanel Spacing="3">
+            <TextBlock Text="EDIÇÃO DESKTOP" FontSize="10" FontWeight="Bold" Foreground="#AFC2FF"/>
+            <TextBlock Text="Arquivos no seu computador" FontSize="12" Foreground="White"/>
+          </StackPanel>
+        </Border>
+      </Grid>
     </Border>
-    <TabControl Grid.Row="1">
-      <TabItem Header="Writer">
-        <Grid RowDefinitions="Auto,*" Margin="10">
-          <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,10">
-            <Button Content="Abrir texto" Click="OpenWriter_Click"/>
-            <Button Content="Salvar texto" Click="SaveWriter_Click"/>
-            <TextBlock Text="Documento de texto" VerticalAlignment="Center" Margin="8,0,0,0"/>
-          </StackPanel>
-          <TextBox x:Name="WriterEditor" Grid.Row="1" AcceptsReturn="True" TextWrapping="Wrap"
-                   VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch"
-                   Watermark="Comece a escrever aqui..." />
-        </Grid>
-      </TabItem>
-      <TabItem Header="Sheets">
-        <Grid RowDefinitions="Auto,*" Margin="10">
-          <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,10">
-            <Button Content="Abrir CSV" Click="OpenSheet_Click"/>
-            <Button Content="Salvar CSV" Click="SaveSheet_Click"/>
-            <TextBlock Text="Planilha simples — separe as colunas por vírgulas." VerticalAlignment="Center" Margin="8,0,0,0"/>
-          </StackPanel>
-          <TextBox x:Name="SheetEditor" Grid.Row="1" AcceptsReturn="True" TextWrapping="NoWrap"
-                   FontFamily="Consolas" VerticalContentAlignment="Top"
-                   Watermark="Produto,Quantidade,Preço&#10;Caderno,3,12.50"/>
-        </Grid>
-      </TabItem>
-      <TabItem Header="Slides">
-        <Grid RowDefinitions="Auto,*" Margin="10">
-          <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,10">
-            <Button Content="Abrir apresentação" Click="OpenSlides_Click"/>
-            <Button Content="Salvar apresentação" Click="SaveSlides_Click"/>
-            <TextBlock Text="Rascunho de apresentação" VerticalAlignment="Center" Margin="8,0,0,0"/>
-          </StackPanel>
-          <Grid Grid.Row="1" RowDefinitions="Auto,Auto,*" Margin="0,18">
-            <TextBlock Text="Título do slide" FontWeight="SemiBold" Margin="0,0,0,5"/>
-            <TextBox x:Name="SlideTitle" Grid.Row="1" Watermark="Digite o título"/>
-            <StackPanel Grid.Row="2" Margin="0,18,0,0" Spacing="8">
-              <TextBlock Text="Conteúdo" FontWeight="SemiBold"/>
-              <TextBox x:Name="SlideBody" AcceptsReturn="True" TextWrapping="Wrap"
-                       VerticalContentAlignment="Top" Watermark="Escreva os pontos principais do slide"/>
+
+    <Border Grid.Row="1" Background="White" CornerRadius="16" Padding="14">
+      <TabControl>
+        <TabItem Header="  Writer  ">
+          <Grid RowDefinitions="Auto,Auto,*" Margin="12">
+            <StackPanel Spacing="5" Margin="0,0,0,14">
+              <TextBlock Text="Writer" FontSize="23" FontWeight="Bold" Foreground="#1B2940"/>
+              <TextBlock Text="Escreva documentos e trabalhe com arquivos do Word (.docx) ou texto simples." FontSize="13" Foreground="#64748B"/>
             </StackPanel>
+            <Border Grid.Row="1" Background="#F3F6FB" CornerRadius="10" Padding="10" Margin="0,0,0,12">
+              <WrapPanel Orientation="Horizontal">
+                <Button Content="Abrir arquivo" Click="OpenWriter_Click" Margin="0,0,8,0"/>
+                <Button Content="Salvar TXT" Click="SaveWriter_Click" Margin="0,0,8,0"/>
+                <Button Content="Abrir Word (.docx)" Click="OpenWord_Click" Margin="0,0,8,0"/>
+                <Button Content="Salvar Word (.docx)" Click="SaveWord_Click"/>
+              </WrapPanel>
+            </Border>
+            <Border Grid.Row="2" BorderBrush="#DCE3ED" BorderThickness="1" CornerRadius="10" Padding="8">
+              <TextBox x:Name="WriterEditor" AcceptsReturn="True" TextWrapping="Wrap"
+                       FontSize="16" LineHeight="25"
+                       VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch"
+                       Background="White" BorderThickness="0"
+                       Watermark="Comece a escrever aqui..."/>
+            </Border>
           </Grid>
-        </Grid>
-      </TabItem>
-    </TabControl>
+        </TabItem>
+
+        <TabItem Header="  Sheets  ">
+          <Grid RowDefinitions="Auto,Auto,*" Margin="12">
+            <StackPanel Spacing="5" Margin="0,0,0,14">
+              <TextBlock Text="Sheets" FontSize="23" FontWeight="Bold" Foreground="#1B2940"/>
+              <TextBlock Text="Edite dados CSV em formato de texto, com colunas separadas por vírgulas." FontSize="13" Foreground="#64748B"/>
+            </StackPanel>
+            <Border Grid.Row="1" Background="#F3F6FB" CornerRadius="10" Padding="10" Margin="0,0,0,12">
+              <StackPanel Orientation="Horizontal" Spacing="8">
+                <Button Content="Abrir CSV" Click="OpenSheet_Click"/>
+                <Button Content="Salvar CSV" Click="SaveSheet_Click"/>
+              </StackPanel>
+            </Border>
+            <Border Grid.Row="2" BorderBrush="#DCE3ED" BorderThickness="1" CornerRadius="10" Padding="8">
+              <TextBox x:Name="SheetEditor" AcceptsReturn="True" TextWrapping="NoWrap"
+                       FontFamily="Consolas" FontSize="14" VerticalContentAlignment="Top"
+                       Background="White" BorderThickness="0"
+                       Watermark="Produto,Quantidade,Preço&#10;Caderno,3,12.50"/>
+            </Border>
+          </Grid>
+        </TabItem>
+
+        <TabItem Header="  Slides  ">
+          <Grid RowDefinitions="Auto,Auto,*" Margin="12">
+            <StackPanel Spacing="5" Margin="0,0,0,14">
+              <TextBlock Text="Slides" FontSize="23" FontWeight="Bold" Foreground="#1B2940"/>
+              <TextBlock Text="Organize o título e o conteúdo de um rascunho de apresentação." FontSize="13" Foreground="#64748B"/>
+            </StackPanel>
+            <Border Grid.Row="1" Background="#F3F6FB" CornerRadius="10" Padding="10" Margin="0,0,0,12">
+              <StackPanel Orientation="Horizontal" Spacing="8">
+                <Button Content="Abrir rascunho" Click="OpenSlides_Click"/>
+                <Button Content="Salvar rascunho" Click="SaveSlides_Click"/>
+              </StackPanel>
+            </Border>
+            <Grid Grid.Row="2" RowDefinitions="Auto,Auto,Auto,*" Margin="2,8">
+              <TextBlock Text="Título do slide" FontWeight="SemiBold" Foreground="#334155" Margin="0,0,0,6"/>
+              <TextBox x:Name="SlideTitle" Grid.Row="1" FontSize="16" Watermark="Digite o título"/>
+              <TextBlock Grid.Row="2" Text="Conteúdo" FontWeight="SemiBold" Foreground="#334155" Margin="0,16,0,6"/>
+              <TextBox x:Name="SlideBody" Grid.Row="3" AcceptsReturn="True" TextWrapping="Wrap"
+                       FontSize="15" VerticalContentAlignment="Top"
+                       Watermark="Escreva os pontos principais do slide"/>
+            </Grid>
+          </Grid>
+        </TabItem>
+      </TabControl>
+    </Border>
+
+    <Border Grid.Row="2" Background="#E7ECF4" CornerRadius="8" Padding="12,8" Margin="0,14,0,0">
+      <Grid ColumnDefinitions="*,Auto">
+        <TextBlock x:Name="StatusText" Text="Pronto — seus arquivos são processados localmente." FontSize="12" Foreground="#526178" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="1" Text="UpgradeOFFICE • Protótipo" FontSize="12" Foreground="#718096" VerticalAlignment="Center"/>
+      </Grid>
+    </Border>
   </Grid>
 </Window>

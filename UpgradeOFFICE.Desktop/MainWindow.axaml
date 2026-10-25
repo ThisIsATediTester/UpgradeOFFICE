@@ -1,0 +1,60 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="UpgradeOFFICE.Desktop.MainWindow"
+        Title="UpgradeOFFICE"
+        Width="1100" Height="720"
+        MinWidth="760" MinHeight="520"
+        WindowStartupLocation="CenterScreen">
+  <Grid RowDefinitions="Auto,*" Margin="18">
+    <Border Grid.Row="0" Padding="18" CornerRadius="12" Background="#243247" Margin="0,0,0,14">
+      <StackPanel Spacing="5">
+        <TextBlock Text="UpgradeOFFICE" FontSize="27" FontWeight="Bold" Foreground="White"/>
+        <TextBlock Text="Seu espaço de trabalho, no seu computador." FontSize="14" Foreground="#D7E0EC"/>
+      </StackPanel>
+    </Border>
+    <TabControl Grid.Row="1">
+      <TabItem Header="Writer">
+        <Grid RowDefinitions="Auto,*" Margin="10">
+          <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,10">
+            <Button Content="Abrir texto" Click="OpenWriter_Click"/>
+            <Button Content="Salvar texto" Click="SaveWriter_Click"/>
+            <TextBlock Text="Documento de texto" VerticalAlignment="Center" Margin="8,0,0,0"/>
+          </StackPanel>
+          <TextBox x:Name="WriterEditor" Grid.Row="1" AcceptsReturn="True" TextWrapping="Wrap"
+                   VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch"
+                   Watermark="Comece a escrever aqui..." />
+        </Grid>
+      </TabItem>
+      <TabItem Header="Sheets">
+        <Grid RowDefinitions="Auto,*" Margin="10">
+          <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,10">
+            <Button Content="Abrir CSV" Click="OpenSheet_Click"/>
+            <Button Content="Salvar CSV" Click="SaveSheet_Click"/>
+            <TextBlock Text="Planilha simples — separe as colunas por vírgulas." VerticalAlignment="Center" Margin="8,0,0,0"/>
+          </StackPanel>
+          <TextBox x:Name="SheetEditor" Grid.Row="1" AcceptsReturn="True" TextWrapping="NoWrap"
+                   FontFamily="Consolas" VerticalContentAlignment="Top"
+                   Watermark="Produto,Quantidade,Preço&#10;Caderno,3,12.50"/>
+        </Grid>
+      </TabItem>
+      <TabItem Header="Slides">
+        <Grid RowDefinitions="Auto,*" Margin="10">
+          <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,10">
+            <Button Content="Abrir apresentação" Click="OpenSlides_Click"/>
+            <Button Content="Salvar apresentação" Click="SaveSlides_Click"/>
+            <TextBlock Text="Rascunho de apresentação" VerticalAlignment="Center" Margin="8,0,0,0"/>
+          </StackPanel>
+          <Grid Grid.Row="1" RowDefinitions="Auto,Auto,*" Margin="0,18">
+            <TextBlock Text="Título do slide" FontWeight="SemiBold" Margin="0,0,0,5"/>
+            <TextBox x:Name="SlideTitle" Grid.Row="1" Watermark="Digite o título"/>
+            <StackPanel Grid.Row="2" Margin="0,18,0,0" Spacing="8">
+              <TextBlock Text="Conteúdo" FontWeight="SemiBold"/>
+              <TextBox x:Name="SlideBody" AcceptsReturn="True" TextWrapping="Wrap"
+                       VerticalContentAlignment="Top" Watermark="Escreva os pontos principais do slide"/>
+            </StackPanel>
+          </Grid>
+        </Grid>
+      </TabItem>
+    </TabControl>
+  </Grid>
+</Window>

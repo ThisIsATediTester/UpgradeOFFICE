@@ -10,9 +10,14 @@
 - macOS
 
 ## Módulos iniciais
-- **Writer:** edição básica de texto, com abertura e salvamento de arquivos TXT.
+- **Writer:** editor de texto com abertura e salvamento de TXT e suporte inicial a documentos Word `.docx`.
 - **Sheets:** edição simples de conteúdo CSV, com abertura e salvamento de arquivos CSV.
 - **Slides:** rascunho de apresentação com título e conteúdo, salvo como TXT.
+
+## Suporte a Word (.docx)
+O Writer pode abrir arquivos `.docx` e importar o texto e os parágrafos, além de salvar o conteúdo editado como um novo arquivo `.docx`. O formato é gerado com o Open XML SDK.
+
+**Limitação importante:** esta é uma primeira implementação. A edição ainda é baseada em texto simples; formatação avançada do Word, imagens, tabelas, cabeçalhos, rodapés, comentários e outros elementos não são preservados ao importar e salvar. Para evitar alterar um documento original sem querer, salve o resultado com um novo nome.
 
 ## Privacidade e segurança
 - Não implementa telemetria, anúncios, analytics nem comunicação com servidores.
@@ -55,9 +60,7 @@ dotnet publish UpgradeOFFICE.Desktop/UpgradeOFFICE.Desktop.csproj -c Release -r 
 No macOS, distribuir o aplicativo fora do ambiente de desenvolvimento pode exigir assinatura e notarização.
 
 ## Limitações atuais
+- O Writer ainda não substitui o Microsoft Word: não preserva toda a formatação ou os elementos complexos de documentos DOCX.
 - A planilha ainda não possui uma grade de células nem fórmulas.
 - As apresentações ainda não são exportadas para PPTX.
-- O Writer ainda é um editor de texto simples, sem suporte completo a DOCX.
 - A compilação e os testes em Windows, Linux e macOS ainda precisam ser executados.
-
-O desenvolvimento principal da versão desktop está na branch `avalonia-desktop`.

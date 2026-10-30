@@ -3,6 +3,9 @@ using System.Text;
 using Avalonia.Controls;
 using Avalonia.Media;
 using AvaloniaTextAlignment = Avalonia.Media.TextAlignment;
+using AvaloniaColor = Avalonia.Media.Color;
+using AvaloniaThickness = Avalonia.Thickness;
+using WordJustificationValues = DocumentFormat.OpenXml.Wordprocessing.JustificationValues;
 using Avalonia.Platform.Storage;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
@@ -121,8 +124,8 @@ public partial class MainWindow : Window
             VerticalContentAlignment = Avalonia.Layout.VerticalAlignment.Center,
             HorizontalContentAlignment = Avalonia.Layout.HorizontalAlignment.Stretch,
             Background = Brushes.White,
-            BorderBrush = new SolidColorBrush(Color.Parse("#E5EAF1")),
-            BorderThickness = new Thickness(0, 0, 0, 1),
+            BorderBrush = new SolidColorBrush(AvaloniaColor.Parse("#E5EAF1")),
+            BorderThickness = new AvaloniaThickness(0, 0, 0, 1),
             Padding = new Thickness(8, 6),
             Watermark = _writerParagraphs.Count == 0 ? "Comece a escrever aqui..." : null
         };
@@ -153,7 +156,7 @@ public partial class MainWindow : Window
         paragraph.Editor.FontWeight = paragraph.IsBold ? FontWeight.Bold : FontWeight.Normal;
         paragraph.Editor.FontStyle = paragraph.IsItalic ? FontStyle.Italic : FontStyle.Normal;
         paragraph.Editor.FontSize = paragraph.FontSize;
-        paragraph.Editor.AvaloniaTextAlignment = paragraph.Alignment;
+        paragraph.Editor.TextAlignment = paragraph.Alignment;
         // Avalonia's standard TextBox has no inline rich-text runs; underline is
         // represented in the document model and written to DOCX on save.
     }
@@ -274,7 +277,7 @@ public partial class MainWindow : Window
             var runProperties = paragraph.Descendants<RunProperties>().FirstOrDefault();
             var alignment = paragraph.ParagraphProperties?.Justification?.Val?.Value switch
             {
-                JustificationValues.Center => AvaloniaTextAlignment.Center,
+                WordJustificationValues.Center => AvaloniaTextAlignment.Center,
                 JustificationValues.Right or JustificationValues.End => AvaloniaTextAlignment.Right,
                 JustificationValues.Both or JustificationValues.Distribute => AvaloniaTextAlignment.Justify,
                 _ => AvaloniaTextAlignment.Left

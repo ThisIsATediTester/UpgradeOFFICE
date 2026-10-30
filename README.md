@@ -31,12 +31,23 @@ O Writer pode abrir arquivos `.docx` e importar texto, parágrafos e parte da fo
 
 ## Executar localmente
 
-Na pasta raiz do repositório:
+Abra o terminal **na pasta raiz do repositório** (a pasta que contém `UpgradeOFFICE.Desktop`). No Windows, você pode abrir essa pasta no Explorador de Arquivos, clicar na barra de endereço, digitar `cmd` e pressionar Enter.
+
+Execute os comandos **um de cada vez**, esperando o primeiro terminar antes de executar o segundo:
+
+1. Restaurar as dependências:
 
 ```bash
 dotnet restore UpgradeOFFICE.Desktop/UpgradeOFFICE.Desktop.csproj
+```
+
+2. Compilar e iniciar o aplicativo:
+
+```bash
 dotnet run --project UpgradeOFFICE.Desktop/UpgradeOFFICE.Desktop.csproj
 ```
+
+> Se aparecer uma mensagem dizendo que o arquivo `.csproj` não existe, confira se o terminal está na pasta raiz correta do repositório.
 
 ## Publicar
 

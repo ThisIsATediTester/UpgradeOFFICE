@@ -2,6 +2,7 @@ using System.Globalization;
 using System.Text;
 using Avalonia.Controls;
 using Avalonia.Media;
+using AvaloniaTextAlignment = Avalonia.Media.TextAlignment;
 using Avalonia.Platform.Storage;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
@@ -18,7 +19,7 @@ public partial class MainWindow : Window
         public bool IsItalic { get; set; }
         public bool IsUnderline { get; set; }
         public int FontSize { get; set; } = 12;
-        public TextAlignment Alignment { get; set; } = TextAlignment.Left;
+        public AvaloniaTextAlignment Alignment { get; set; } = AvaloniaTextAlignment.Left;
     }
 
     private readonly List<WriterParagraph> _writerParagraphs = new();
@@ -152,7 +153,7 @@ public partial class MainWindow : Window
         paragraph.Editor.FontWeight = paragraph.IsBold ? FontWeight.Bold : FontWeight.Normal;
         paragraph.Editor.FontStyle = paragraph.IsItalic ? FontStyle.Italic : FontStyle.Normal;
         paragraph.Editor.FontSize = paragraph.FontSize;
-        paragraph.Editor.TextAlignment = paragraph.Alignment;
+        paragraph.Editor.AvaloniaTextAlignment = paragraph.Alignment;
         // Avalonia's standard TextBox has no inline rich-text runs; underline is
         // represented in the document model and written to DOCX on save.
     }
@@ -222,7 +223,7 @@ public partial class MainWindow : Window
         SetStatus($"Tamanho {size} aplicado ao parágrafo atual.");
     }
 
-    private void SetParagraphAlignment(TextAlignment alignment, string label)
+    private void SetParagraphAlignment(AvaloniaTextAlignment alignment, string label)
     {
         var paragraph = GetActiveParagraph();
         if (paragraph is null) return;
@@ -233,13 +234,13 @@ public partial class MainWindow : Window
     }
 
     private void AlignLeft_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e) =>
-        SetParagraphAlignment(TextAlignment.Left, "à esquerda");
+        SetParagraphAlignment(AvaloniaTextAlignment.Left, "à esquerda");
 
     private void AlignCenter_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e) =>
-        SetParagraphAlignment(TextAlignment.Center, "centralizado");
+        SetParagraphAlignment(AvaloniaTextAlignment.Center, "centralizado");
 
     private void AlignRight_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e) =>
-        SetParagraphAlignment(TextAlignment.Right, "à direita");
+        SetParagraphAlignment(AvaloniaTextAlignment.Right, "à direita");
 
     private void AddParagraph_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
@@ -258,13 +259,13 @@ public partial class MainWindow : Window
         SetStatus("Novo parágrafo adicionado com a formatação do anterior.");
     }
 
-    private static async Task<List<(string Text, bool Bold, bool Italic, bool Underline, int FontSize, TextAlignment Alignment)>> ReadWordDocumentAsync(IStorageFile file)
+    private static async Task<List<(string Text, bool Bold, bool Italic, bool Underline, int FontSize, AvaloniaTextAlignment Alignment)>> ReadWordDocumentAsync(IStorageFile file)
     {
         await using var stream = await file.OpenReadAsync();
         using var document = WordprocessingDocument.Open(stream, false);
 
         var body = document.MainDocumentPart?.Document?.Body;
-        var result = new List<(string, bool, bool, bool, int, TextAlignment)>();
+        var result = new List<(string, bool, bool, bool, int, AvaloniaTextAlignment)>();
         if (body is null) return result;
 
         foreach (var paragraph in body.Descendants<Paragraph>())
@@ -273,10 +274,10 @@ public partial class MainWindow : Window
             var runProperties = paragraph.Descendants<RunProperties>().FirstOrDefault();
             var alignment = paragraph.ParagraphProperties?.Justification?.Val?.Value switch
             {
-                JustificationValues.Center => TextAlignment.Center,
-                JustificationValues.Right or JustificationValues.End => TextAlignment.Right,
-                JustificationValues.Both or JustificationValues.Distribute => TextAlignment.Justify,
-                _ => TextAlignment.Left
+                JustificationValues.Center => AvaloniaTextAlignment.Center,
+                JustificationValues.Right or JustificationValues.End => AvaloniaTextAlignment.Right,
+                JustificationValues.Both or JustificationValues.Distribute => AvaloniaTextAlignment.Justify,
+                _ => AvaloniaTextAlignment.Left
             };
 
             var bold = runProperties?.Bold is not null && runProperties.Bold.Val?.Value != false;
@@ -333,9 +334,9 @@ public partial class MainWindow : Window
                     {
                         var justification = paragraph.Alignment switch
                         {
-                            TextAlignment.Center => JustificationValues.Center,
-                            TextAlignment.Right => JustificationValues.Right,
-                            TextAlignment.Justify => JustificationValues.Both,
+                            AvaloniaTextAlignment.Center => JustificationValues.Center,
+                            AvaloniaTextAlignment.Right => JustificationValues.Right,
+                            AvaloniaTextAlignment.Justify => JustificationValues.Both,
                             _ => JustificationValues.Left
                         };
 

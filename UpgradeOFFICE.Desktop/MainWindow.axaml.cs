@@ -275,13 +275,14 @@ public partial class MainWindow : Window
         {
             var text = string.Concat(paragraph.Descendants<Text>().Select(t => t.Text));
             var runProperties = paragraph.Descendants<RunProperties>().FirstOrDefault();
-            var alignment = paragraph.ParagraphProperties?.Justification?.Val?.Value switch
-            {
-                WordJustificationValues.Center => AvaloniaTextAlignment.Center,
-                WordJustificationValues.Right or WordJustificationValues.End => AvaloniaTextAlignment.Right,
-                WordJustificationValues.Both or WordJustificationValues.Distribute => AvaloniaTextAlignment.Justify,
-                _ => AvaloniaTextAlignment.Left
-            };
+            var justification = paragraph.ParagraphProperties?.Justification?.Val?.Value;
+            var alignment = AvaloniaTextAlignment.Left;
+            if (justification == WordJustificationValues.Center)
+                alignment = AvaloniaTextAlignment.Center;
+            else if (justification == WordJustificationValues.Right || justification == WordJustificationValues.End)
+                alignment = AvaloniaTextAlignment.Right;
+            else if (justification == WordJustificationValues.Both || justification == WordJustificationValues.Distribute)
+                alignment = AvaloniaTextAlignment.Justify;
 
             var bold = runProperties?.Bold is not null && runProperties.Bold.Val?.Value != false;
             var italic = runProperties?.Italic is not null && runProperties.Italic.Val?.Value != false;

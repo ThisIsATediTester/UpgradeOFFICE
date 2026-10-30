@@ -126,7 +126,7 @@ public partial class MainWindow : Window
             Background = Brushes.White,
             BorderBrush = new SolidColorBrush(AvaloniaColor.Parse("#E5EAF1")),
             BorderThickness = new AvaloniaThickness(0, 0, 0, 1),
-            Padding = new Thickness(8, 6),
+            Padding = new AvaloniaThickness(8, 6),
             Watermark = _writerParagraphs.Count == 0 ? "Comece a escrever aqui..." : null
         };
 
@@ -278,8 +278,8 @@ public partial class MainWindow : Window
             var alignment = paragraph.ParagraphProperties?.Justification?.Val?.Value switch
             {
                 WordJustificationValues.Center => AvaloniaTextAlignment.Center,
-                JustificationValues.Right or JustificationValues.End => AvaloniaTextAlignment.Right,
-                JustificationValues.Both or JustificationValues.Distribute => AvaloniaTextAlignment.Justify,
+                WordJustificationValues.Right or WordJustificationValues.End => AvaloniaTextAlignment.Right,
+                WordJustificationValues.Both or WordJustificationValues.Distribute => AvaloniaTextAlignment.Justify,
                 _ => AvaloniaTextAlignment.Left
             };
 
@@ -337,10 +337,10 @@ public partial class MainWindow : Window
                     {
                         var justification = paragraph.Alignment switch
                         {
-                            AvaloniaTextAlignment.Center => JustificationValues.Center,
-                            AvaloniaTextAlignment.Right => JustificationValues.Right,
-                            AvaloniaTextAlignment.Justify => JustificationValues.Both,
-                            _ => JustificationValues.Left
+                            AvaloniaTextAlignment.Center => WordJustificationValues.Center,
+                            AvaloniaTextAlignment.Right => WordJustificationValues.Right,
+                            AvaloniaTextAlignment.Justify => WordJustificationValues.Both,
+                            _ => WordJustificationValues.Left
                         };
 
                         var p = new Paragraph(new ParagraphProperties(new Justification { Val = justification }));

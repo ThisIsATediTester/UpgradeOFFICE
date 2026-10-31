@@ -11,6 +11,13 @@ internal static class Program
     public static AppBuilder BuildAvaloniaApp() =>
         AppBuilder.Configure<App>()
             .UsePlatformDetect()
+            .With(new Win32PlatformOptions
+            {
+                // Use CPU rendering on Windows to avoid native GPU/ANGLE crashes
+                // on machines with incompatible graphics drivers.
+                RenderingMode = new[] { Win32RenderingMode.Software },
+                CompositionMode = new[] { Win32CompositionMode.RedirectionSurface }
+            })
             .WithInterFont()
             .LogToTrace();
 }
